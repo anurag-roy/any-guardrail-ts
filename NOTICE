@@ -1,0 +1,5 @@
+any-guardrail-ts
+Copyright 2026 Anurag Roy
+
+This project is an independent TypeScript port inspired by Mozilla.ai's
+any-guardrail project, which is licensed under the Apache License 2.0.
