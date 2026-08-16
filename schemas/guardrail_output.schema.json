@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/anurag-roy/any-guardrail-ts/main/schemas/guardrail_output.schema.json",
+  "title": "GuardrailOutput",
+  "description": "Normalized output returned by every any-guardrail-ts adapter.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["valid", "categories"],
+  "properties": {
+    "valid": { "type": "boolean" },
+    "score": { "type": "number" },
+    "categories": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/categoryResult" }
+    },
+    "spans": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/spanResult" }
+    },
+    "explanation": { "type": "string" },
+    "modifiedText": { "type": "string" },
+    "action": { "type": "string" },
+    "usage": { "$ref": "#/$defs/usage" },
+    "extra": { "type": "object" },
+    "raw": true
+  },
+  "$defs": {
+    "categoryResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "triggered": { "type": "boolean" },
+        "score": { "type": "number" },
+        "severity": { "type": "integer" }
+      }
+    },
+    "spanResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start", "end"],
+      "properties": {
+        "start": { "type": "integer", "minimum": 0 },
+        "end": { "type": "integer", "minimum": 0 },
+        "text": { "type": "string" },
+        "label": { "type": "string" },
+        "score": { "type": "number" }
+      }
+    },
+    "usage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "modelId": { "type": "string" },
+        "latencyMs": { "type": "number", "minimum": 0 },
+        "promptTokens": { "type": "integer", "minimum": 0 },
+        "completionTokens": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}
